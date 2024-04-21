@@ -1,22 +1,6 @@
 
 from ai.dbconnection import get_engine
-
-from sqlalchemy import Column, Integer, String, Text, DateTime, Boolean
-from sqlalchemy.ext.declarative import declarative_base
-
-from sqlalchemy.orm import sessionmaker
-
-Base = declarative_base()
-
-class Prompt(Base):
-    __tablename__ = 'prompt'
-
-    id = Column(Integer, primary_key=True)
-    prompt_text = Column(Text)
-    created_at = Column(DateTime)
-    active = Column(Boolean)
-
-
+from ai.model.prompt import Prompt
 # PromptManager to manage prompt CRUD operations
 class PromptManager:
     def __init__(self, engine):

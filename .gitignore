@@ -1,5 +1,14 @@
+# ENV
 .env
-design
 
+# Dev Notes
+design
+dbnotes.md
+
+# Data
+role.csv
+
+# Misc
 __pycache__
 .DS_Store
+.vscode

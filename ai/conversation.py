@@ -1,18 +1,7 @@
 """
-Conversation
-Sentence
-Label
-
-User
+Conversation manager
 """
 
-
-# attribute of Conversation
-# 1. user_id
-# 1. user_name
-# 2. created_at
-
-# temp code for importing
 import sys, os
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
@@ -21,115 +10,37 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(
 from sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
+from sqlalchemy import create_engine
 import datetime
-
-Base = declarative_base()
-
-class Conversation(Base):
-    __tablename__ = 'conversation'
-    id = Column(Integer, primary_key=True)
-    user_name = Column(String(50))
-    conversation = Column(Text, nullable=True)
-    created_at = Column(DateTime, default=datetime.datetime.utcnow)
-    updated_at = Column(DateTime, onupdate=datetime.datetime.utcnow)
-    notes = Column(Text, nullable=True)
-    deleted = Column(Integer, default=0)
-    
-    sentences = relationship("Sentence", back_populates="conversation")
-
-    # def __repr__(self):
-    #     return f"<Conversation(id={self.id}, user_id={self.user_id}, created_at={self.created_at}, updated_at={self.updated_at})>"
-
-    def to_dict(self):
-        return {
-            "id": self.id,
-            "user_name": self.user_name,
-            "conversation": self.conversation,
-            "created_at": self.created_at,
-            "updated_at": self.updated_at,
-            "notes": self.notes,
-            "deleted": self.deleted
-        }
-
-
-class Sentence(Base):
-    __tablename__ = 'sentence'
-    id = Column(Integer, primary_key=True)
-    from_user = Column(String(50), nullable=True)
-    to_user = Column(String(50), nullable=True)
-    text = Column(Text, nullable=False)
-    type = Column(String(50), nullable=True)
-    model = Column(String(50), nullable=True)
-    created = Column(DateTime, default=datetime.datetime.utcnow)
-    notes = Column(Text, nullable=True)
-    conversation_id = Column(Integer, ForeignKey('conversation.id'), nullable=True)
-    conversation = relationship("Conversation", back_populates="sentences")
-
-    def to_dict(self):
-        return {
-            "id": self.id,
-            "from_user": self.from_user,
-            "to_user": self.to_user,
-            "text": self.text,
-            "type": self.type,
-            "model": self.model,
-            "created": self.created,
-            "notes": self.notes,
-            "conversation_id": self.conversation_id
-        }
-
-class User(Base):
-    __tablename__ = 'user'
-    id = Column(Integer, primary_key=True)
-    user_name = Column(String(50), nullable=False)
-    created_at = Column(DateTime, default=datetime.datetime.utcnow)
-    # conversations = relationship("Conversation", back_populates="user")
-
-    def __repr__(self):
-        return f"<User(id={self.id}, user_name={self.user_name}, created_at={self.created_at})>"
-
-
-# Class Label has following attributes
-# id, sentence_id, type, userid, score, text, created_at, updated_at, notes
-class Label(Base):
-    __tablename__ = 'label'
-    id = Column(Integer, primary_key=True)
-    sentence_id = Column(Integer, ForeignKey('sentence.id'), nullable=True)
-
-    type = Column(String(50), nullable=True)
-    userid = Column(Integer, ForeignKey('user.id'), nullable=True)
-    
-    score = Column(Integer, nullable=True)
-    text = Column(Text, nullable=True)
-    created_at = Column(DateTime, default=datetime.datetime.utcnow)
-    updated_at = Column(DateTime, onupdate=datetime.datetime.utcnow)
-    notes = Column(Text, nullable=True)
-
-# init all
-def initialize_db(engine):
-    Base.metadata.create_all(engine)
-
-
-from app.db.db import get_engine
-engine = get_engine()
 
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 
+from ai.model.conversation import Conversation, Sentence
+
+# from ai.model.label import Label
+# from ai.model.label import LabelSentence
+
+from app.db.db import get_engine
 
 DBHOST = os.getenv("DBHOST")
 DBPASS = os.getenv("DBPASS")
 
-Session = sessionmaker(bind=engine)
+engine = get_engine()
+
 
 class ConversationManager:
     def __init__(self, sentences = []):
+        Session = sessionmaker(bind=engine)
         self.session = Session()
         self.sentences = sentences
 
-    def create_conversation(self, user_name, conversation, notes=None):
+    def create_conversation(self, user_name, conversation, role_info = None, notes=None):
         """Create a new conversation in the database."""
-        new_conversation = Conversation(user_name=user_name, conversation=conversation, notes=notes)
+        new_conversation = Conversation(user_name=user_name, 
+                        conversation=conversation,
+                        role_info = role_info,
+                         notes=notes)
 
         # add sentences to table
         for sentence in self.sentences:
@@ -139,11 +50,26 @@ class ConversationManager:
         self.session.commit()
         return new_conversation
 
-    def add_sentence(self, from_user, text, type=None, model=None, notes=None):
-        """Add a sentence to the conversation."""
+    def add_sentence(self, text, from_user = None,type=None, model=None, notes=None):
+        """Add a sentence to the conversation.
+        This is a temporary sentence that will be added to the conversation.
+        Not saved to the database yet.
+        """
         sentence = Sentence(from_user=from_user, text=text, type=type, model=model, notes=notes)
         self.sentences.append(sentence)
         return sentence
+
+    def create_sentence(self, conversation_id = None, from_user = None, text = None, type=None, model=None, notes=None):
+        """Create a new sentence in the database."""
+        new_sentence = Sentence(conversation_id=conversation_id, from_user=from_user, text=text, type=type, model=model, notes=notes)
+        self.session.add(new_sentence)
+        self.session.commit()
+        return new_sentence
+
+
+    def get_sentence(self, sentence_id):
+        """Get sentence by id."""
+        return self.session.query(Sentence).filter(Sentence.id == sentence_id).first()
 
     def get_sentence_by_conversation(self, conversation_id, return_json=False):
         """Get sentences by conversation id."""
@@ -171,27 +97,38 @@ class ConversationManager:
     def close_session(self):
         """Close the database session."""
         self.session.close()
-
     
     # get conversation, sentence, and label by id
-    def get_conversation(self, conversation_id):
+    def get_conversation(self, conversation_id, return_json=False):
         """Get conversation by id."""
+        if return_json:
+            return self.session.query(Conversation).filter(Conversation.id == conversation_id).first().to_dict()
         return self.session.query(Conversation).filter(Conversation.id == conversation_id).first()
 
-    def list_conversations(self):
+    def list_conversations(self, return_json=False, limit = 100, desc = True):
         """List all conversations."""
-        return self.session.query(Conversation).all()
+
+        result = self.session.query(Conversation).order_by(Conversation.created_at.desc()).limit(limit).all()
+
+        if return_json:
+            # sort by id
+            result.sort(key=lambda x: x.id, reverse=True)
+            return [conversation.to_dict() for conversation in result]
+        return result
 
     def list_active_conversations(self, return_json=False, limit = 20):
         """List all active conversations."""
-        conversations = self.session.query(Conversation).filter(Conversation.deleted == 0).limit(20).all()
+        conversations = self.session.query(Conversation).filter(Conversation.deleted == 0).limit(limit).all()
 
         if return_json:
             return [conversation.to_dict() for conversation in conversations]
         return conversations
 
     def list_active_conversations_by_user(self, user_name, return_json=False, order = 'desc'):
-        """List all deleted conversations by user."""
+        """List all deleted conversations by user.
+        Only return the active conversations.
+        Convesation only, not include sentences.
+        """
         conversations =  self.session.query(Conversation).filter(Conversation.deleted == 0, Conversation.user_name == user_name).order_by(Conversation.created_at.desc()).all()
 
         if return_json:
@@ -220,13 +157,34 @@ class ConversationManager:
         """Get sentences by conversation id."""
         return self.session.query(Sentence).filter(Sentence.conversation_id == conversation_id).all()
 
-    # Add label to conversation or sentences
-    def add_label(self, sentence_id, type = 'score', userid = None, score = None, text = None, notes = None):
+    # Add label to conversation
+    def add_label_conversation(self, conversation_id, label_from_user = None, label_score = None, label_text = None, notes = None):
         """Add label to conversation or sentences."""
-        label = Label(sentence_id=sentence_id, type=type, userid=userid, score=score, text=text, notes=notes)
-        self.session.add(label)
+
+        # update conversation with label
+        conversation = self.session.query(Conversation).filter(Conversation.id == conversation_id).first()
+        conversation.label_score = label_score
+        conversation.label_text = label_text
+        conversation.label_from_user = label_from_user
+        conversation.label_created_at = datetime.datetime.utcnow() + datetime.timedelta(hours=8)
         self.session.commit()
-        return label
+
+        return conversation_id
+
+    # Add label to sentences
+    def add_label_sentence(self, sentence_id, label_score = 1, label_text = 'default label', label_from_user = None):
+        """Add label to conversation or sentences."""
+
+        # update sentence with label
+        sentence = self.session.query(Sentence).filter(Sentence.id == sentence_id).first()
+        sentence.label_score = label_score
+        sentence.label_text = label_text
+        sentence.label_from_user = label_from_user
+        sentence.label_created_at = datetime.datetime.utcnow() + datetime.timedelta(hours=8)
+        self.session.commit()
+
+        return sentence_id
+
 
 
 

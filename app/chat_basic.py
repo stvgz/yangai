@@ -5,6 +5,7 @@ from dash import Dash,dcc, html, Input, Output, State, callback_context, no_upda
 from dash.dependencies import Input, Output, State, ALL, MATCH
 import dash_table
 import dash_bootstrap_components as dbc
+import feffery_antd_components as fac  
 
 from .chat_components import *
 from .chat_settings import *
@@ -13,6 +14,8 @@ import sys
 import os
 import re
 from datetime import datetime, timedelta
+import json 
+
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))))
@@ -29,8 +32,8 @@ from ai.make_prompt import get_system_prompt, get_role_prompt_and_desc
 
 def get_ai():
     
-    return Qianfan()
-    # return Moonshot()
+    # return Qianfan()
+    return Moonshot()
 
 # Instantiate the Dash app
 def make_app(flask_app = None):
@@ -46,10 +49,14 @@ def make_app(flask_app = None):
 
     app.title = '智能陪练'
 
-    app.layout = html.Div([
+    app.layout = html.Div(
+        id = 'main_div',
+        children=
+        [
         
         dcc.Store(id = 'conversation_mem', storage_type= 'memory'),
         dcc.Store(id = 'background_mem', storage_type= 'memory'),
+        dcc.Store(id = 'score_mem', storage_type= 'memory'),
 
         # Headers
         html.Div(
@@ -106,7 +113,15 @@ def make_app(flask_app = None):
                 style={'padding': 20}),
         
 
-        dcc.Tabs([
+
+
+        dcc.Tabs(
+            # style of tabs
+            style={'height': '50px', 'display': 'flex', 'flex-direction': 'row', 
+            # 'justify-content': 'space-around'
+            },
+            children =
+            [
             dcc.Tab(label='对话', 
                 # tab style should be horizontal
                 style={'display': 'flex', 'flexDirection': 'row'},
@@ -173,7 +188,12 @@ def make_app(flask_app = None):
                 dcc.RadioItems(id='scene-selector', options=[
                     {'label': '场景1：默认场景，10客户随机', 'value': '1'},
                     {'label': '场景2：测试场景', 'value': '2'},
-                    {'label': '场景3：数据库数据', 'value': '3'}
+                    {'label': '场景3：测试场景', 'value': '3'},
+                    {'label': '场景4：测试场景', 'value': '4'},
+                    {'label': '场景5：测试场景', 'value': '5'},
+                    {'label': '场景6：测试场景', 'value': '6'},
+                    {'label': '场景7：测试场景', 'value': '7'},
+                    {'label': '场景10：数据库数据', 'value': '10'}
                     ],
 
                     style={'width': '50%', 'margin': '0 auto', 'font-size': '1.25rem'},
@@ -221,18 +241,75 @@ def make_app(flask_app = None):
                         style={'width': '100%', 'height': '3rem'},
                         className='bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded',
                         ),
-                ], style={'position': 'fixed', 'bottom': 0, 'left': 0, 'right': 0, 'display': 'flex', 'flexDirection': 'column'}),
+                    ],
+                    style={'position': 'fixed', 'bottom': 0, 'left': 0, 'right': 0, 'display': 'flex', 'flexDirection': 'column'}),
                 
 
                 ]),
 
-                ],
+
+            #### tab 4 ####
+
+            dcc.Tab(label='打分', children=[
                 
-                style={'height': '50px', 'display': 'flex', 'flex-direction': 'row', 'justify-content': 'space-around'},
-                )
+                # A table of conversation history including user name, created_at, conversation, button to view
+                dcc.Loading(
+                html.Div(id='score_history',
+                    style={'padding': '10px', 'margin-top': '10px', 'background-color': '#f3f4f6'},
+                    className='bg-gray-100'
+                    ),),
+
+                # invisible modal for view single history
+                dbc.Modal(
+                    [
+                        dbc.ModalHeader("对话打分"),
+                        dbc.ModalBody([
+                            
+                            # button to submit score result
+                            html.Button('提交打分', id='score_modal_submit', n_clicks=0,
+                                style={'width': '100%', 'height': '3rem'},
+                                className='bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded',
+                                ),
+                            dcc.Store(id = 'score_modal_conversation_id', storage_type= 'memory'),
+                            fac.AntdRate(id = 'score_modal_conversation_score', count=5, value=0),
+                            dcc.Textarea(id = 'score_modal_conversation_label_text', placeholder = '请输入您的评价'),
+
+                            # for sentences
+                            dcc.Store(id = 'score_modal_sentence_id', storage_type= 'memory'),
+                            html.Div(id='score_modal_content',
+                                style={'padding': '10px', 'margin-top': '10px', 'background-color': '#f3f4f6'},
+                                className='bg-gray-100'
+                            ),
+                            ]),
+                    ],
+                    id = 'score_modal',
+                    is_open = False,
+                    ),
+
+                html.Div([
+
+                    html.Button('查看所有对话进行打分', id='score_button_showall', n_clicks=0,
+                        style={'width': '100%', 'height': '3rem'},
+                        className='bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded',
+                        ),
+                    ],
+                    style={'position': 'fixed', 'bottom': 0, 'left': 0, 'right': 0, 'display': 'flex', 'flexDirection': 'column'}),
+                
+
+                    ]),
+                ]),
 
 
-            ])
+        # end main div children    
+        ],
+
+
+        
+        # end main div
+        )
+
+
+
 
     ### init settings ### 
 
@@ -258,7 +335,7 @@ def make_app(flask_app = None):
     #     else:
     #         return None
 
-    # ###########   LoginLogic   #####3
+    # ###########   LoginLogic   #####
     @app.callback(
     Output("login_modal", "is_open"),
     Output('user_name', 'children'),
@@ -410,7 +487,10 @@ def make_app(flask_app = None):
                 sentence_text = c['content']
                 cm.add_sentence(from_user= sentence_from_user, text=sentence_text)
 
-            cm.create_conversation(user_name, conversation=conversation_json, notes = "Case: {}".format(case))
+            cm.create_conversation(user_name, 
+                            conversation=conversation_json, 
+                            role_info = background_info,
+                            notes = "Case: {}".format(case))
 
             # new_conversation = save_conversation(conversation_json, user_name, engine=get_engine())
             
@@ -463,37 +543,6 @@ def make_app(flask_app = None):
             '''.format(item['id'], item['id'])
 
 
-        def hist_template(hist_id, user_name, created_at, content):
-            # remove continuous spaces in content
-            content = re.sub(r"\s+", " ", content)
-            max_length = 10
-            content = content[:max_length] + "..." if len(content) > max_length else content
-            return html.Div([
-                html.Div([
-                    html.Span("对话时间: ", className="font-bold"),
-                    html.Span("{}".format(created_at), className="text-gray-600")  # 示例时间，应替换为动态数据
-                ], className="mb-2"),
-                html.Div([
-                    html.Span("用户: ", className="font-bold"),
-                    html.Span("{}".format(user_name), className="text-gray-600")  # 示例内容，应替换为动态数据
-                ], className="mb-4"),
-                html.Button("查看/打分", 
-                        id= {
-                                "type":'type_history_button_label',
-                                "index":"history_button_label_{}".format(hist_id), 
-                            },
-                        
-                        n_clicks=0, 
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"),
-                html.Button("删除", 
-                        id={
-                            "type":'type_history_button_delete',
-                            "index":"history_button_delete_{}".format(hist_id)
-                        },
-
-                        n_clicks=0, className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded")
-                ], className="p-4 border border-gray-200 rounded-lg")
-
         page_content = []
         for item in ordered_conversations_list:
             page_content.append(hist_template(item['id'], item['user_name'], item['created_at'], item['conversation']))
@@ -501,6 +550,7 @@ def make_app(flask_app = None):
         return page_content
 
 
+    ######## Check History Button Clicked ########
     @app.callback(
         Output('history_modal_view', 'is_open'),
         Output('history_modal_view_content', 'children'),
@@ -513,7 +563,11 @@ def make_app(flask_app = None):
         
         if not ctx.triggered:
             # 如果没有触发事件，不更新任何输出
-            return no_update, no_update
+            return False, no_update
+
+        if sum(n_clicks_label) == 0:
+            # 如果没有查看按钮被点击，不更新任何输出
+            return False, no_update
 
         # 获取触发回调的按钮ID和类型
         button_id = ctx.triggered[0]['prop_id'].split('.')[0]
@@ -536,6 +590,7 @@ def make_app(flask_app = None):
             c = conv2markdown(conversation=conversation_list, user = 'user', bot = 'assistant')
             
             return True, c
+
         elif button_type == 'type_history_button_delete':
             # 处理删除按钮的逻辑
             # 假设有一个函数 delete_conversation(hist_id) 处理删除逻辑
@@ -545,7 +600,236 @@ def make_app(flask_app = None):
         else:
             return no_update, no_update
 
+
+    ################# Call Back For Score ##################
+    # call back for list all conversation for score
+    @app.callback(
+        Output('score_history', 'children'),
+        Input('score_button_showall', 'n_clicks'),
+        prevent_initial_call=True)
+    def update_score_history(n_clicks):
+        """
+        1. Get all conversation. Show a) user_name, b) created_at, c) conversation  d) score status
+        2. Show all conversation in cards, have a button to score
+
+        """
+
+        # get all conversation
+        cm = ConversationManager()
+        list_conversation = cm.list_conversations(return_json=True)
+            # 如果没有找到任何对话
+        if not list_conversation:
+            
+            return html.Div([
+                html.P("没有找到历史记录", className="text-gray-500 text-center py-4")
+            ], className="bg-blue-100 rounded-lg shadow p-4")
+
+        # change order 
+        desired_order = ["id","user_name",  "created_at","conversation", "label_score",
+                        "label_text", 'label_created_at','role_info']
+
+        # 创建一个新的列表，其中的字典将按照 desired_order 中的键的顺序来创建
+        ordered_conversations_list = []
+
+        for conv in list_conversation:
+            ordered_conv = {key: conv[key] for key in desired_order if key in conv}
+            ordered_conversations_list.append(ordered_conv)
+        # format time
+        for item in ordered_conversations_list:
+            # change timezone from utc to utc+8
+            # datetime_object = datetime.datetime.strptime(item['created_at'], "%Y-%m-%d %H:%M:%S")
+            datetime_utc8 = item['created_at'] + timedelta(hours=8)
+            item['created_at'] = datetime_utc8.strftime("%Y-%m-%d %H:%M:%S")
+
+        page_content = []
+        for item in ordered_conversations_list:
+            page_content.append(hist_template_for_score(convid = item['id'], 
+                                                        role_info = item['role_info'],
+                                                        user_name= item['user_name'], 
+                                                        created_at = item['created_at'],
+                                                        content = item['conversation'],
+                                                        label_score = item['label_score'],
+                                                        label_text = item['label_text'],
+                                                        label_created_at = item['label_created_at']
+                                                        ))
+
+
+        return page_content
+
+    
+    # call back for score button clicked
+    # ”对话打分“
+    
+    @app.callback(
+        Output('score_modal', 'is_open'),
+        Output('score_modal_conversation_score', 'value'),
+        Output('score_modal_conversation_label_text', 'value'),
+        Output('score_modal_content', 'children'),
+        Output('score_modal_conversation_id', 'data'),
+        Output('score_modal_sentence_id', 'data'),
+
+        [Input({'type': 'type_score_button_label', 'index': ALL}, 'n_clicks'),
+        Input({'type': 'type_score_button_delete', 'index': ALL}, 'n_clicks'),
+        ],
+
+
+        [State('user_name', 'children')],
+        prevent_initial_call=True)
+    def dynamic_score_action(n_clicks_label, n_clicks_delete, user_name):
+        ctx = callback_context
+
+        if not ctx.triggered:
+            # 如果没有触发事件，不更新任何输出
+            return False, no_update, no_update, no_update, no_update, no_update
+
+        if sum(n_clicks_label) == 0:
+            # 如果没有查看按钮被点击，不更新任何输出
+            return False, no_update, no_update, no_update, no_update, no_update
+
+        # 获取触发回调的按钮ID和类型
+        button_id = ctx.triggered[0]['prop_id'].split('.')[0]
+        button_info = json.loads(button_id.replace('\'', '\"'))
+        button_index = button_info['index']
+        button_type = button_info['type']
+
+        conversation_id = int(button_index.split('_')[-1])
+
+        # get conversation
+        cm = ConversationManager()
+        conversation = cm.get_conversation(conversation_id, return_json=True)
+        senteces = cm.get_sentence_by_conversation(conversation_id, return_json=True)
+        # remove 1st sentence
+        senteces = senteces[1:]
+
+        # information of current conversation
+        # existing score
+        conversation_id = conversation['id']
+        score = conversation['label_score']
+        label_text = conversation['label_text']
+        
+
+        # 4. A series of cars representing each sentence, each sentence has a) from_user, b) text c) dropdown for score
+        # 5. A button to submit score
+
+        component_list = []
+        
+        # header
+        # only keep minutes
+        created_at = conversation['created_at']
+        created_at = created_at.strftime("%Y-%m-%d %H:%M")
+
+        header = html.Div([
+            html.P("用户: {} 时间{} 对话ID {}".format(conversation['user_name'], created_at, conversation_id)),
+        ])
+        component_list.append(header)
+        
+        # sentences
+        for s in senteces:
+            sentence = html.Div(
+                style = {'backgroundColor': 'lightblue'} if s['from_user'] == 'assistant' else {},
+                children = [
+                html.Div([
+                    html.Div("{}".format(s['text']), style={'width': '75%', 
+                            'display': 'inline-block', 
+                            'overflow': 'auto', 
+                            'text-overflow': 'ellipsis', 
+                            
+                            }),
+                    # dropdown for score
+                    dcc.Dropdown(id = {'type': 'score_modal_sentence', 
+                                    'index':'score_modal_sentence_{}'.format(s['id'])
+                                        },
+                        options=[{'label': '1', 'value': 1}, 
+                                 {'label': '2', 'value': 2}, 
+                                 {'label': '3', 'value': 3},
+                                 {'label': '4', 'value': 4}, 
+                                 {'label': '5', 'value': 5}],
+                        value= s['label_score'],
+                        style={'width': '25%', 'display': 'inline-block'})
+                ], style={'display': 'flex', 'flex-direction': 'row'})
+                ])
+            
+            component_list.append(sentence)
+
+        # list of sentence id
+        sentence_id = [s['id'] for s in senteces]
+        
+
+        return 1, score, label_text, component_list, conversation_id, sentence_id
+
+
+    # call back for score modal submit button clicked
+    @app.callback(
+
+        Output('score_mem', 'data'),
+
+        [Input('score_modal_submit', 'n_clicks'),
+        
+
+        ],
+
+        [State('user_name', 'children'),
+        State('score_modal_conversation_id', 'data'),
+        State('score_modal_conversation_score', 'value'),
+        State('score_modal_conversation_label_text', 'value'),
+        
+        State('score_modal_sentence_id', 'data'),
+        State({'type': 'score_modal_sentence', 'index': ALL}, 'value'),
+        # State({'type': 'score_modal_sentence', 'index': ALL}, 'id'),
+        ],
+        prevent_initial_call=True)
+    def dynamic_score_action_submit(n_clicks, 
+                                    
+                                    user_name, 
+                                    conversation_id, 
+                                    conversation_score,
+                                    conversation_label_text,
+
+                                    sentence_ids,
+                                    score_sentence, 
+                                    # sentence_id                                
+                                    ):
+        ctx = callback_context
+
+        if not ctx.triggered:
+            # 如果没有触发事件，不更新任何输出
+            return "No submit"
+
+        if n_clicks == 0:
+            # 如果没有查看按钮被点击，不更新任何输出
+            return "No submit"
+
+
+        if not ctx.triggered:
+            # 如果没有触发事件，不更新任何输出
+            return False, no_update
+
+        # 获得conversation_id
+        conversation_id = conversation_id
+        cm = ConversationManager()
+        # get conversation
+        conversation = cm.get_conversation(conversation_id, return_json=True)
+        # get sentences
+        sentences = cm.get_sentence_by_conversation(conversation_id, return_json=True)
+        # remove 1st sentence
+        sentences = sentences[1:]
+        # update score of conversation
+        cm.add_label_conversation(conversation_id,label_from_user=user_name, label_score= conversation_score, label_text= conversation_label_text)
+
+        # update score of sentences
+        for idx, s_id in enumerate(sentence_ids):
+            
+            sentence_score = score_sentence[idx]
+            cm.add_label_sentence(sentence_id=s_id, label_score= sentence_score, label_from_user= user_name)
+        
+
+        return 1
+
+
+    # end of app
     return app
+
+
 
 if __name__ == '__main__':
   app = make_app()

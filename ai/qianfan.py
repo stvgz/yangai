@@ -2,14 +2,16 @@
 import requests
 import json
 import os
+
+from logger.logger import logger
 from ai.ai import AIBase
-from ai.logger import logger
 
 class Qianfan(AIBase):
 
     def __init__(self,
                 ak = None,
-                sk = None
+                sk = None,
+                model_name = None
                 ):
         
         from dotenv import load_dotenv
@@ -29,8 +31,31 @@ class Qianfan(AIBase):
         self.role = 'user'
         self.response_role = 'assistant'
 
+        # params
+        self.model_name = 'ernie-3.5-8k'
+
+        self.model_params = []
 
         pass
+
+    @property
+    def info_dict(self):
+        """Major information about this instance"""
+
+        return {
+            
+            "token": self.token,
+            "conversation_control": {
+                "conv": self.conv,
+                "conv_len_max": self.conv_len_max,
+                "conv_str_max": self.conv_str_max
+            },
+            "chat_roles": {
+                "role": self.role,
+                "response_role": self.response_role
+            },
+            "model_params": self.model_params
+        }
 
 
     def get_token(self):
@@ -44,15 +69,32 @@ class Qianfan(AIBase):
         self.token = str(requests.post(url, params=params).json().get("access_token"))
         return 
 
-
-    def add_conv(self, msg, role = 'user'):
+    def add_conv(self, msg : str, role = 'user', reference : list = None) -> None:
+        """Add conversation to the list of conversation
+        
+        role: user, assistant, system
+        msg: message
+        reference: reference to the previous message
+            [
+                {
+                    "question": "question",
+                    "answer": "answer"
+                },
+                {
+                    "question": "question",
+                    "answer": "answer"
+                }
+            ]
+        
+        """
         if not self.conv:
             self.conv = []
 
         # add msg to conv
         self.conv.append({
             "role": role,
-            "content": msg
+            "content": msg,
+            "reference": reference
         })
 
         return
@@ -65,10 +107,14 @@ class Qianfan(AIBase):
 
         # url = "https://aip.baidubce.com/rpc/2.0/ai_custom/v1/wenxinworkshop/chat/eb-instant?access_token=" + self.token
 
-    
-        # url= "https://aip.baidubce.com/rpc/2.0/ai_custom/v1/wenxinworkshop/chat/ernie-3.5-8k-1222?access_token=" + self.token
-
-        url = "https://aip.baidubce.com/rpc/2.0/ai_custom/v1/wenxinworkshop/chat/completions?access_token=" + self.token
+        if self.model_name =='erinie-3.5-8k-1222':
+            url = "https://aip.baidubce.com/rpc/2.0/ai_custom/v1/wenxinworkshop/chat/ernie-3.5-8k-1222?access_token=" + self.token
+        
+        elif self.model_name == 'ernie-3.5-8k':
+            url = "https://aip.baidubce.com/rpc/2.0/ai_custom/v1/wenxinworkshop/chat/completions?access_token=" + self.token
+        
+        else:
+            raise ValueError("model_name not supported")
 
         payload = json.dumps({
                 "messages": self.conv
@@ -101,7 +147,7 @@ class Qianfan(AIBase):
         self.system_prompt(prompt, system_name)
 
 
-    def chat(self, msg, role = None, reponse_role = None):
+    def chat(self, msg, role = None, reponse_role = None, set_response_txt = None):
         """Define multi-turn chat with Qianfan AI"""
 
         if not role:
@@ -111,11 +157,14 @@ class Qianfan(AIBase):
         
         self.add_conv(msg, role)
         
-        logger.info("conversation {}".format(self.conv))
+        logger.info("Model Conversation {}".format(self.conv))
 
-        res_text = self.proxy(msg, role, reponse_role)
+        if set_response_txt:
+            res_text = set_response_txt
+        else:
+            res_text = self.proxy(msg, role, reponse_role)
 
-        logger.info("response {}".format(res_text))
+        logger.info("Model Response {}".format(res_text))
         
         self.add_conv(res_text, reponse_role)
         

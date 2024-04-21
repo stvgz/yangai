@@ -6,6 +6,8 @@
 from ai.prompt import PromptManager
 from ai.dbconnection import get_engine
 
+import pandas as pd
+
 def get_system_prompt(case = 1):
     """Get prompt for different case"""
 
@@ -34,6 +36,25 @@ def get_system_prompt(case = 1):
         return system_prompt
 
     elif case == 3:
+        # 在这里补充case 3 @qiushi
+        system_prompt = "测试prompt"
+        
+        return system_prompt
+    
+    elif case == 4:
+        # 在这里补充case 4 @qiushi
+        system_prompt = "测试prompt"
+        
+        return system_prompt
+    
+    elif case == 5:
+        # 在这里补充case 5 @qiushi
+        system_prompt = "测试prompt"
+        
+        return system_prompt
+
+
+    elif case == 10:
         # 从数据库获取prompt
         pm = PromptManager(engine = get_engine())
         prompt = pm.get_latest_active_prompt()
@@ -59,8 +80,11 @@ def get_role_prompt_and_desc(case = 1):
 
         examples_str = "\n".join(examples)
 
-        role_attribute = random.choice(customer_list)
-        
+        # read customer list
+        roles = pd.read_csv('advisor/role.csv')
+        roles_dict = roles.to_dict(orient='records')
+
+        role_attribute = random.choice(roles_dict)
         # key only values in dict role_attribute
         role_values = [str(k) + ":" + str(v) for k, v in role_attribute.items()]
         # keep string
@@ -97,12 +121,37 @@ def get_role_prompt_and_desc(case = 1):
     elif case == 2:
         # 在这里补充Case 2 @qiushi
 
+        role_prompt = "这是case=2的一个场景"
+        role_desc = "我的人设是case=2的人设"
+
+        return role_prompt, role_desc
+
+    elif case == 3:
+        # 在这里补充Case 3 @qiushi
+
+        role_prompt = "测试prompt"
+        role_desc = "测试role_desc"
+
+        return role_prompt, role_desc
+    
+    elif case == 4:
+        # 在这里补充Case 4 @qiushi
+
+        role_prompt = "测试prompt"
+        role_desc = "测试role_desc"
+
+        return role_prompt, role_desc
+    
+    elif case == 5:
+        # 在这里补充Case 5 @qiushi
+
         role_prompt = "测试prompt"
         role_desc = "测试role_desc"
 
         return role_prompt, role_desc
 
-    elif case == 3:
+
+    elif case == 6:
         # 在这里补充Case 3 @qiushi
 
         role_prompt = "测试prompt"
