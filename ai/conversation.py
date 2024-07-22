@@ -33,7 +33,9 @@ class ConversationManager:
     def __init__(self, sentences = []):
         Session = sessionmaker(bind=engine)
         self.session = Session()
-        self.sentences = sentences
+        # self.sentences = sentences
+        # 上边确认造成了sentence初始化的问题，所以这里改成空列表
+        self.sentences = []
 
     def create_conversation(self, user_name, conversation, role_info = None, notes=None):
         """Create a new conversation in the database."""

@@ -58,6 +58,8 @@ def make_app(flask_app = None):
         dcc.Store(id = 'background_mem', storage_type= 'memory'),
         dcc.Store(id = 'score_mem', storage_type= 'memory'),
 
+
+
         # Headers
         html.Div(
                 [
@@ -286,6 +288,21 @@ def make_app(flask_app = None):
                     is_open = False,
                     ),
 
+                dbc.Modal(
+                    [
+                        dbc.ModalHeader("保存成功"),
+                        dbc.ModalBody([
+                            html.P("保存成功"),
+                            
+                            ]),
+
+
+                    ],
+                    id = 'score_modal_finish',
+                    is_open = False,
+                
+                    ),
+
                 html.Div([
 
                     html.Button('查看所有对话进行打分', id='score_button_showall', n_clicks=0,
@@ -477,7 +494,7 @@ def make_app(flask_app = None):
             return conv2markdown(ai.conv, user= user, bot = bot), conversation, "", background_info
 
         if mode == 'end':
-            # save conversation
+            # conversation end and save conversation
             user_name = input_name
             conversation_json = conv2text(conversation)
 
@@ -492,6 +509,7 @@ def make_app(flask_app = None):
                             role_info = background_info,
                             notes = "Case: {}".format(case))
 
+            cm.close_session()
             # new_conversation = save_conversation(conversation_json, user_name, engine=get_engine())
             
             return "对话结束，谢谢", None,"","请再次点击开始以便进行下一次对话"
@@ -547,6 +565,7 @@ def make_app(flask_app = None):
         for item in ordered_conversations_list:
             page_content.append(hist_template(item['id'], item['user_name'], item['created_at'], item['conversation']))
 
+        cm.close_session()
         return page_content
 
 
@@ -589,15 +608,18 @@ def make_app(flask_app = None):
             
             c = conv2markdown(conversation=conversation_list, user = 'user', bot = 'assistant')
             
+            cm.close_session()
             return True, c
 
         elif button_type == 'type_history_button_delete':
             # 处理删除按钮的逻辑
             # 假设有一个函数 delete_conversation(hist_id) 处理删除逻辑
             cm.delete_conversation(conversation_id)
+            cm.close_session()
             # 更新页面或显示删除成功的消息
             return True, f"对话 {conversation_id} 已被删除。"
         else:
+            cm.close_session()
             return no_update, no_update
 
 
@@ -654,6 +676,7 @@ def make_app(flask_app = None):
                                                         ))
 
 
+        cm.close_session()
         return page_content
 
     
@@ -707,10 +730,6 @@ def make_app(flask_app = None):
         score = conversation['label_score']
         label_text = conversation['label_text']
         
-
-        # 4. A series of cars representing each sentence, each sentence has a) from_user, b) text c) dropdown for score
-        # 5. A button to submit score
-
         component_list = []
         
         # header
@@ -754,7 +773,7 @@ def make_app(flask_app = None):
         # list of sentence id
         sentence_id = [s['id'] for s in senteces]
         
-
+        cm.close_session()
         return 1, score, label_text, component_list, conversation_id, sentence_id
 
 
@@ -762,10 +781,9 @@ def make_app(flask_app = None):
     @app.callback(
 
         Output('score_mem', 'data'),
+        Output('score_modal_finish', 'is_open'),
 
         [Input('score_modal_submit', 'n_clicks'),
-        
-
         ],
 
         [State('user_name', 'children'),
@@ -822,8 +840,10 @@ def make_app(flask_app = None):
             sentence_score = score_sentence[idx]
             cm.add_label_sentence(sentence_id=s_id, label_score= sentence_score, label_from_user= user_name)
         
+        score_finished_result = 1
 
-        return 1
+        cm.close_session()
+        return 1,score_finished_result
 
 
     # end of app

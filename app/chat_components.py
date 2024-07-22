@@ -26,8 +26,6 @@ sentence_div = html.Div(
             ]
         )
 
-
-
 def save_conversation(conversation, user_name):
     # save conversation
     engine = get_engine()
@@ -35,7 +33,6 @@ def save_conversation(conversation, user_name):
     cm.create_conversation(user_name, conversation)
     cm.close_session()
     return
-
 
 def conv2text(conv):
     """ Conv = [

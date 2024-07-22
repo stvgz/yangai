@@ -5159,3 +5159,161 @@ werkzeug - 2024-04-21 22:31:48,615 - INFO - 127.0.0.1 - - [21/Apr/2024 22:31:48]
 werkzeug - 2024-04-21 22:32:00,112 - INFO - 127.0.0.1 - - [21/Apr/2024 22:32:00] "POST /ai/_dash-update-component HTTP/1.1" 200 -
 werkzeug - 2024-04-21 22:32:00,137 - INFO - 127.0.0.1 - - [21/Apr/2024 22:32:00] "[36mGET /ai/_dash-component-suites/dash/dcc/async-markdown.js HTTP/1.1[0m" 304 -
 werkzeug - 2024-04-21 22:32:00,171 - INFO - 127.0.0.1 - - [21/Apr/2024 22:32:00] "[36mGET /ai/_dash-component-suites/dash/dcc/async-highlight.js HTTP/1.1[0m" 304 -
+werkzeug - 2024-04-25 17:43:31,278 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:8050
+werkzeug - 2024-04-25 17:43:31,279 - INFO - [33mPress CTRL+C to quit[0m
+werkzeug - 2024-04-25 17:43:33,142 - INFO - 127.0.0.1 - - [25/Apr/2024 17:43:33] "[33mGET / HTTP/1.1[0m" 404 -
+werkzeug - 2024-04-25 17:43:37,704 - INFO - 127.0.0.1 - - [25/Apr/2024 17:43:37] "GET /ai/ HTTP/1.1" 200 -
+werkzeug - 2024-04-25 17:43:37,758 - INFO - 127.0.0.1 - - [25/Apr/2024 17:43:37] "[36mGET /ai/assets/stylesheet_tailwind.css?m=1710163154.029169 HTTP/1.1[0m" 304 -
+werkzeug - 2024-04-25 17:43:37,758 - INFO - 127.0.0.1 - - [25/Apr/2024 17:43:37] "GET /ai/assets/stylesheet.css?m=1633600237.0 HTTP/1.1" 200 -
+werkzeug - 2024-04-25 17:43:37,792 - INFO - 127.0.0.1 - - [25/Apr/2024 17:43:37] "GET /ai/_dash-component-suites/dash/deps/polyfill@7.v2_16_1m1713672115.12.1.min.js HTTP/1.1" 200 -
+werkzeug - 2024-04-25 17:43:37,799 - INFO - 127.0.0.1 - - [25/Apr/2024 17:43:37] "GET /ai/_dash-component-suites/dash/deps/react-dom@16.v2_16_1m1713672115.14.0.min.js HTTP/1.1" 200 -
+werkzeug - 2024-04-25 17:43:37,822 - INFO - 127.0.0.1 - - [25/Apr/2024 17:43:37] "GET /ai/_dash-component-suites/dash_bootstrap_components/_components/dash_bootstrap_components.v0_10_7m1674656189.min.js HTTP/1.1" 200 -
+werkzeug - 2024-04-25 17:43:37,827 - INFO - 127.0.0.1 - - [25/Apr/2024 17:43:37] "GET /ai/_dash-component-suites/feffery_antd_components/feffery_antd_components.v0_2_11m1713672115.min.js HTTP/1.1" 200 -
+werkzeug - 2024-04-25 17:43:37,834 - INFO - 127.0.0.1 - - [25/Apr/2024 17:43:37] "[36mGET /ai/assets/tailwind.config.js?m=1710162944.0514288 HTTP/1.1[0m" 304 -
+werkzeug - 2024-04-25 17:43:37,855 - INFO - 127.0.0.1 - - [25/Apr/2024 17:43:37] "GET /ai/_dash-component-suites/dash/dash-renderer/build/dash_renderer.v2_16_1m1713672114.min.js HTTP/1.1" 200 -
+werkzeug - 2024-04-25 17:43:37,861 - INFO - 127.0.0.1 - - [25/Apr/2024 17:43:37] "GET /ai/_dash-component-suites/dash/dcc/dash_core_components.v2_13_1m1713672114.js HTTP/1.1" 200 -
+werkzeug - 2024-04-25 17:43:37,872 - INFO - 127.0.0.1 - - [25/Apr/2024 17:43:37] "GET /ai/_dash-component-suites/dash/html/dash_html_components.v2_0_17m1713672115.min.js HTTP/1.1" 200 -
+werkzeug - 2024-04-25 17:44:17,307 - INFO - 127.0.0.1 - - [25/Apr/2024 17:44:17] "GET /ai/_dash-layout HTTP/1.1" 200 -
+werkzeug - 2024-04-25 17:44:17,314 - INFO - 127.0.0.1 - - [25/Apr/2024 17:44:17] "GET /ai/_dash-dependencies HTTP/1.1" 200 -
+werkzeug - 2024-04-25 17:44:17,541 - INFO - 127.0.0.1 - - [25/Apr/2024 17:44:17] "POST /ai/_dash-update-component HTTP/1.1" 200 -
+werkzeug - 2024-04-25 17:45:22,163 - INFO - 127.0.0.1 - - [25/Apr/2024 17:45:22] "POST /ai/_dash-update-component HTTP/1.1" 200 -
+werkzeug - 2024-04-25 17:45:25,637 - INFO - 127.0.0.1 - - [25/Apr/2024 17:45:25] "GET /ai/ HTTP/1.1" 200 -
+werkzeug - 2024-04-25 17:45:25,730 - INFO - 127.0.0.1 - - [25/Apr/2024 17:45:25] "[36mGET /ai/assets/stylesheet_tailwind.css?m=1710163154.029169 HTTP/1.1[0m" 304 -
+werkzeug - 2024-04-25 17:45:25,731 - INFO - 127.0.0.1 - - [25/Apr/2024 17:45:25] "[36mGET /ai/assets/stylesheet.css?m=1633600237.0 HTTP/1.1[0m" 304 -
+werkzeug - 2024-04-25 17:45:25,752 - INFO - 127.0.0.1 - - [25/Apr/2024 17:45:25] "[36mGET /ai/assets/tailwind.config.js?m=1710162944.0514288 HTTP/1.1[0m" 304 -
+werkzeug - 2024-04-25 17:45:26,823 - INFO - 127.0.0.1 - - [25/Apr/2024 17:45:26] "GET /ai/_dash-layout HTTP/1.1" 200 -
+werkzeug - 2024-04-25 17:45:26,839 - INFO - 127.0.0.1 - - [25/Apr/2024 17:45:26] "GET /ai/_dash-dependencies HTTP/1.1" 200 -
+werkzeug - 2024-04-25 17:45:26,842 - INFO - 127.0.0.1 - - [25/Apr/2024 17:45:26] "[36mGET /ai/assets/favicon.ico?m=1712410497.442126 HTTP/1.1[0m" 304 -
+werkzeug - 2024-04-25 17:45:26,918 - INFO - 127.0.0.1 - - [25/Apr/2024 17:45:26] "POST /ai/_dash-update-component HTTP/1.1" 200 -
+werkzeug - 2024-04-25 17:45:28,905 - INFO - 127.0.0.1 - - [25/Apr/2024 17:45:28] "POST /ai/_dash-update-component HTTP/1.1" 200 -
+werkzeug - 2024-04-25 17:45:33,129 - INFO - 127.0.0.1 - - [25/Apr/2024 17:45:33] "POST /ai/_dash-update-component HTTP/1.1" 200 -
+werkzeug - 2024-04-25 17:45:33,165 - INFO - 127.0.0.1 - - [25/Apr/2024 17:45:33] "POST /ai/_dash-update-component HTTP/1.1" 200 -
+werkzeug - 2024-04-25 17:45:34,777 - INFO - 127.0.0.1 - - [25/Apr/2024 17:45:34] "POST /ai/_dash-update-component HTTP/1.1" 200 -
+werkzeug - 2024-04-25 17:45:34,820 - INFO - 127.0.0.1 - - [25/Apr/2024 17:45:34] "GET /ai/_dash-component-suites/feffery_antd_components/async-data_entry.v0_2_11m1699104383.js HTTP/1.1" 200 -
+werkzeug - 2024-04-25 17:45:34,824 - INFO - 127.0.0.1 - - [25/Apr/2024 17:45:34] "GET /ai/_dash-component-suites/dash/dcc/async-dropdown.js HTTP/1.1" 200 -
+werkzeug - 2024-04-25 17:45:39,836 - INFO - 127.0.0.1 - - [25/Apr/2024 17:45:39] "POST /ai/_dash-update-component HTTP/1.1" 200 -
+werkzeug - 2024-04-25 17:46:41,959 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:8050
+werkzeug - 2024-04-25 17:46:41,959 - INFO - [33mPress CTRL+C to quit[0m
+manager - 2024-04-25 17:46:44,160 - ERROR - Exception on /ai/_dash-update-component [POST]
+Traceback (most recent call last):
+  File "/Users/zhitaogao/opt/anaconda3/envs/bbd/lib/python3.8/site-packages/dash/dash.py", line 1295, in dispatch
+    cb = self.callback_map[output]
+KeyError: 'score_mem.data'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/zhitaogao/opt/anaconda3/envs/bbd/lib/python3.8/site-packages/flask/app.py", line 1463, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/zhitaogao/opt/anaconda3/envs/bbd/lib/python3.8/site-packages/flask/app.py", line 872, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/zhitaogao/opt/anaconda3/envs/bbd/lib/python3.8/site-packages/flask/app.py", line 870, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/zhitaogao/opt/anaconda3/envs/bbd/lib/python3.8/site-packages/flask/app.py", line 855, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/Users/zhitaogao/opt/anaconda3/envs/bbd/lib/python3.8/site-packages/dash/dash.py", line 1347, in dispatch
+    raise KeyError(msg) from missing_callback_function
+KeyError: "Callback function not found for output 'score_mem.data', perhaps you forgot to prepend the '@'?"
+werkzeug - 2024-04-25 17:46:44,165 - INFO - 127.0.0.1 - - [25/Apr/2024 17:46:44] "[35m[1mPOST /ai/_dash-update-component HTTP/1.1[0m" 500 -
+manager - 2024-04-25 17:46:44,941 - ERROR - Exception on /ai/_dash-update-component [POST]
+Traceback (most recent call last):
+  File "/Users/zhitaogao/opt/anaconda3/envs/bbd/lib/python3.8/site-packages/dash/dash.py", line 1295, in dispatch
+    cb = self.callback_map[output]
+KeyError: 'score_mem.data'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/zhitaogao/opt/anaconda3/envs/bbd/lib/python3.8/site-packages/flask/app.py", line 1463, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/zhitaogao/opt/anaconda3/envs/bbd/lib/python3.8/site-packages/flask/app.py", line 872, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/zhitaogao/opt/anaconda3/envs/bbd/lib/python3.8/site-packages/flask/app.py", line 870, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/zhitaogao/opt/anaconda3/envs/bbd/lib/python3.8/site-packages/flask/app.py", line 855, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/Users/zhitaogao/opt/anaconda3/envs/bbd/lib/python3.8/site-packages/dash/dash.py", line 1347, in dispatch
+    raise KeyError(msg) from missing_callback_function
+KeyError: "Callback function not found for output 'score_mem.data', perhaps you forgot to prepend the '@'?"
+werkzeug - 2024-04-25 17:46:44,946 - INFO - 127.0.0.1 - - [25/Apr/2024 17:46:44] "[35m[1mPOST /ai/_dash-update-component HTTP/1.1[0m" 500 -
+werkzeug - 2024-04-25 17:46:45,902 - INFO - 127.0.0.1 - - [25/Apr/2024 17:46:45] "GET /ai/ HTTP/1.1" 200 -
+werkzeug - 2024-04-25 17:46:46,069 - INFO - 127.0.0.1 - - [25/Apr/2024 17:46:46] "[36mGET /ai/assets/stylesheet.css?m=1633600237.0 HTTP/1.1[0m" 304 -
+werkzeug - 2024-04-25 17:46:46,074 - INFO - 127.0.0.1 - - [25/Apr/2024 17:46:46] "[36mGET /ai/assets/stylesheet_tailwind.css?m=1710163154.029169 HTTP/1.1[0m" 304 -
+werkzeug - 2024-04-25 17:46:46,119 - INFO - 127.0.0.1 - - [25/Apr/2024 17:46:46] "[36mGET /ai/assets/tailwind.config.js?m=1710162944.0514288 HTTP/1.1[0m" 304 -
+werkzeug - 2024-04-25 17:46:46,208 - INFO - 127.0.0.1 - - [25/Apr/2024 17:46:46] "GET /ai/_dash-layout HTTP/1.1" 200 -
+werkzeug - 2024-04-25 17:46:46,211 - INFO - 127.0.0.1 - - [25/Apr/2024 17:46:46] "GET /ai/_dash-dependencies HTTP/1.1" 200 -
+werkzeug - 2024-04-25 17:46:46,273 - INFO - 127.0.0.1 - - [25/Apr/2024 17:46:46] "[36mGET /ai/assets/favicon.ico?m=1712410497.442126 HTTP/1.1[0m" 304 -
+werkzeug - 2024-04-25 17:46:46,277 - INFO - 127.0.0.1 - - [25/Apr/2024 17:46:46] "POST /ai/_dash-update-component HTTP/1.1" 200 -
+werkzeug - 2024-04-25 17:46:48,493 - INFO - 127.0.0.1 - - [25/Apr/2024 17:46:48] "POST /ai/_dash-update-component HTTP/1.1" 200 -
+werkzeug - 2024-04-25 17:46:51,668 - INFO - 127.0.0.1 - - [25/Apr/2024 17:46:51] "POST /ai/_dash-update-component HTTP/1.1" 200 -
+werkzeug - 2024-04-25 17:46:51,705 - INFO - 127.0.0.1 - - [25/Apr/2024 17:46:51] "POST /ai/_dash-update-component HTTP/1.1" 200 -
+werkzeug - 2024-04-25 17:46:53,286 - INFO - 127.0.0.1 - - [25/Apr/2024 17:46:53] "POST /ai/_dash-update-component HTTP/1.1" 200 -
+werkzeug - 2024-04-25 17:46:53,315 - INFO - 127.0.0.1 - - [25/Apr/2024 17:46:53] "[36mGET /ai/_dash-component-suites/dash/dcc/async-dropdown.js HTTP/1.1[0m" 304 -
+werkzeug - 2024-04-25 17:46:58,356 - INFO - 127.0.0.1 - - [25/Apr/2024 17:46:58] "POST /ai/_dash-update-component HTTP/1.1" 200 -
+werkzeug - 2024-04-25 17:47:08,725 - INFO - 127.0.0.1 - - [25/Apr/2024 17:47:08] "POST /ai/_dash-update-component HTTP/1.1" 200 -
+werkzeug - 2024-06-03 22:45:17,011 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:8050
+werkzeug - 2024-06-03 22:45:17,011 - INFO - [33mPress CTRL+C to quit[0m
+werkzeug - 2024-06-06 23:45:35,489 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:8050
+werkzeug - 2024-06-06 23:45:35,490 - INFO - [33mPress CTRL+C to quit[0m
+werkzeug - 2024-07-20 11:41:27,431 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:8050
+werkzeug - 2024-07-20 11:41:27,432 - INFO - [33mPress CTRL+C to quit[0m
+werkzeug - 2024-07-20 11:45:17,248 - INFO - 127.0.0.1 - - [20/Jul/2024 11:45:17] "[33mGET / HTTP/1.1[0m" 404 -
+werkzeug - 2024-07-20 11:45:18,103 - INFO - 127.0.0.1 - - [20/Jul/2024 11:45:18] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+werkzeug - 2024-07-20 11:45:22,736 - INFO - 127.0.0.1 - - [20/Jul/2024 11:45:22] "GET /ai/ HTTP/1.1" 200 -
+werkzeug - 2024-07-20 11:45:22,789 - INFO - 127.0.0.1 - - [20/Jul/2024 11:45:22] "GET /ai/assets/stylesheet.css?m=1633600237.0 HTTP/1.1" 200 -
+werkzeug - 2024-07-20 11:45:22,789 - INFO - 127.0.0.1 - - [20/Jul/2024 11:45:22] "GET /ai/assets/stylesheet_tailwind.css?m=1710163154.029169 HTTP/1.1" 200 -
+werkzeug - 2024-07-20 11:45:22,797 - INFO - 127.0.0.1 - - [20/Jul/2024 11:45:22] "GET /ai/_dash-component-suites/dash/deps/polyfill@7.v2_16_1m1713672115.12.1.min.js HTTP/1.1" 200 -
+werkzeug - 2024-07-20 11:45:22,801 - INFO - 127.0.0.1 - - [20/Jul/2024 11:45:22] "GET /ai/_dash-component-suites/dash/deps/react@16.v2_16_1m1713672115.14.0.min.js HTTP/1.1" 200 -
+werkzeug - 2024-07-20 11:45:22,804 - INFO - 127.0.0.1 - - [20/Jul/2024 11:45:22] "GET /ai/_dash-component-suites/dash/deps/react-dom@16.v2_16_1m1713672115.14.0.min.js HTTP/1.1" 200 -
+werkzeug - 2024-07-20 11:45:22,808 - INFO - 127.0.0.1 - - [20/Jul/2024 11:45:22] "GET /ai/_dash-component-suites/dash/deps/prop-types@15.v2_16_1m1713672115.8.1.min.js HTTP/1.1" 200 -
+werkzeug - 2024-07-20 11:45:22,821 - INFO - 127.0.0.1 - - [20/Jul/2024 11:45:22] "GET /ai/_dash-component-suites/dash_bootstrap_components/_components/dash_bootstrap_components.v0_10_7m1674656189.min.js HTTP/1.1" 200 -
+werkzeug - 2024-07-20 11:45:22,830 - INFO - 127.0.0.1 - - [20/Jul/2024 11:45:22] "GET /ai/_dash-component-suites/feffery_antd_components/feffery_antd_components.v0_2_11m1713672115.min.js HTTP/1.1" 200 -
+werkzeug - 2024-07-20 11:45:22,848 - INFO - 127.0.0.1 - - [20/Jul/2024 11:45:22] "GET /ai/assets/tailwind.config.js?m=1710162944.0514288 HTTP/1.1" 200 -
+werkzeug - 2024-07-20 11:45:22,857 - INFO - 127.0.0.1 - - [20/Jul/2024 11:45:22] "GET /ai/_dash-component-suites/dash/dash-renderer/build/dash_renderer.v2_16_1m1713672114.min.js HTTP/1.1" 200 -
+werkzeug - 2024-07-20 11:45:22,870 - INFO - 127.0.0.1 - - [20/Jul/2024 11:45:22] "GET /ai/_dash-component-suites/dash/dcc/dash_core_components.v2_13_1m1713672114.js HTTP/1.1" 200 -
+werkzeug - 2024-07-20 11:45:22,871 - INFO - 127.0.0.1 - - [20/Jul/2024 11:45:22] "GET /ai/_dash-component-suites/dash/dcc/dash_core_components-shared.v2_13_1m1713672114.js HTTP/1.1" 200 -
+werkzeug - 2024-07-20 11:45:22,876 - INFO - 127.0.0.1 - - [20/Jul/2024 11:45:22] "GET /ai/_dash-component-suites/dash/deps/react@16.v2_16_1m1713672115.14.0.min.js HTTP/1.1" 200 -
+werkzeug - 2024-07-20 11:45:22,884 - INFO - 127.0.0.1 - - [20/Jul/2024 11:45:22] "GET /ai/_dash-component-suites/dash/html/dash_html_components.v2_0_17m1713672115.min.js HTTP/1.1" 200 -
+werkzeug - 2024-07-20 11:45:22,888 - INFO - 127.0.0.1 - - [20/Jul/2024 11:45:22] "GET /ai/_dash-component-suites/dash/deps/prop-types@15.v2_16_1m1713672115.8.1.min.js HTTP/1.1" 200 -
+werkzeug - 2024-07-20 11:45:22,896 - INFO - 127.0.0.1 - - [20/Jul/2024 11:45:22] "GET /ai/_dash-component-suites/dash/deps/react-dom@16.v2_16_1m1713672115.14.0.min.js HTTP/1.1" 200 -
+werkzeug - 2024-07-20 11:45:22,898 - INFO - 127.0.0.1 - - [20/Jul/2024 11:45:22] "GET /ai/_dash-component-suites/dash/deps/polyfill@7.v2_16_1m1713672115.12.1.min.js HTTP/1.1" 200 -
+werkzeug - 2024-07-20 11:45:22,900 - INFO - 127.0.0.1 - - [20/Jul/2024 11:45:22] "GET /ai/_dash-component-suites/dash_bootstrap_components/_components/dash_bootstrap_components.v0_10_7m1674656189.min.js HTTP/1.1" 200 -
+werkzeug - 2024-07-20 11:45:22,904 - INFO - 127.0.0.1 - - [20/Jul/2024 11:45:22] "GET /ai/_dash-component-suites/dash/dash_table/bundle.v5_2_10m1713672114.js HTTP/1.1" 200 -
+werkzeug - 2024-07-20 11:45:22,913 - INFO - 127.0.0.1 - - [20/Jul/2024 11:45:22] "GET /ai/_dash-component-suites/feffery_antd_components/feffery_antd_components.v0_2_11m1713672115.min.js HTTP/1.1" 200 -
+werkzeug - 2024-07-20 11:45:22,930 - INFO - 127.0.0.1 - - [20/Jul/2024 11:45:22] "GET /ai/_dash-component-suites/dash/dash-renderer/build/dash_renderer.v2_16_1m1713672114.min.js HTTP/1.1" 200 -
+werkzeug - 2024-07-20 11:45:22,931 - INFO - 127.0.0.1 - - [20/Jul/2024 11:45:22] "GET /ai/assets/tailwind.config.js?m=1710162944.0514288 HTTP/1.1" 200 -
+werkzeug - 2024-07-20 11:45:22,937 - INFO - 127.0.0.1 - - [20/Jul/2024 11:45:22] "GET /ai/_dash-component-suites/dash/dcc/dash_core_components.v2_13_1m1713672114.js HTTP/1.1" 200 -
+werkzeug - 2024-07-20 11:45:22,939 - INFO - 127.0.0.1 - - [20/Jul/2024 11:45:22] "GET /ai/_dash-component-suites/dash/dcc/dash_core_components-shared.v2_13_1m1713672114.js HTTP/1.1" 200 -
+werkzeug - 2024-07-20 11:45:28,272 - INFO - 127.0.0.1 - - [20/Jul/2024 11:45:28] "GET /ai/_dash-layout HTTP/1.1" 200 -
+werkzeug - 2024-07-20 11:45:28,276 - INFO - 127.0.0.1 - - [20/Jul/2024 11:45:28] "GET /ai/_dash-dependencies HTTP/1.1" 200 -
+werkzeug - 2024-07-20 11:45:28,568 - INFO - 127.0.0.1 - - [20/Jul/2024 11:45:28] "POST /ai/_dash-update-component HTTP/1.1" 200 -
+werkzeug - 2024-07-20 11:45:28,583 - INFO - 127.0.0.1 - - [20/Jul/2024 11:45:28] "GET /ai/assets/favicon.ico?m=1712410497.442126 HTTP/1.1" 200 -
+werkzeug - 2024-07-20 11:45:33,008 - INFO - 127.0.0.1 - - [20/Jul/2024 11:45:33] "POST /ai/_dash-update-component HTTP/1.1" 200 -
+werkzeug - 2024-07-20 11:45:36,405 - INFO - 127.0.0.1 - - [20/Jul/2024 11:45:36] "POST /ai/_dash-update-component HTTP/1.1" 200 -
+werkzeug - 2024-07-20 11:45:36,418 - INFO - 127.0.0.1 - - [20/Jul/2024 11:45:36] "GET /ai/_dash-component-suites/dash/dcc/async-markdown.js HTTP/1.1" 200 -
+werkzeug - 2024-07-20 11:45:36,449 - INFO - 127.0.0.1 - - [20/Jul/2024 11:45:36] "GET /ai/_dash-component-suites/dash/dcc/async-highlight.js HTTP/1.1" 200 -
+werkzeug - 2024-07-20 11:45:44,043 - INFO - 127.0.0.1 - - [20/Jul/2024 11:45:44] "POST /ai/_dash-update-component HTTP/1.1" 200 -
+werkzeug - 2024-07-20 11:50:30,521 - INFO - 127.0.0.1 - - [20/Jul/2024 11:50:30] "POST /ai/_dash-update-component HTTP/1.1" 200 -
+werkzeug - 2024-07-20 11:51:16,904 - INFO - 127.0.0.1 - - [20/Jul/2024 11:51:16] "POST /ai/_dash-update-component HTTP/1.1" 200 -
+werkzeug - 2024-07-20 11:51:22,145 - INFO - 127.0.0.1 - - [20/Jul/2024 11:51:22] "POST /ai/_dash-update-component HTTP/1.1" 200 -
+werkzeug - 2024-07-20 11:51:27,208 - INFO - 127.0.0.1 - - [20/Jul/2024 11:51:27] "POST /ai/_dash-update-component HTTP/1.1" 200 -
+werkzeug - 2024-07-20 11:52:53,363 - INFO - 127.0.0.1 - - [20/Jul/2024 11:52:53] "POST /ai/_dash-update-component HTTP/1.1" 200 -
+werkzeug - 2024-07-20 11:53:02,798 - INFO - 127.0.0.1 - - [20/Jul/2024 11:53:02] "POST /ai/_dash-update-component HTTP/1.1" 200 -
+werkzeug - 2024-07-20 12:08:39,591 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:8050
+werkzeug - 2024-07-20 12:08:39,592 - INFO - [33mPress CTRL+C to quit[0m
+werkzeug - 2024-07-20 12:08:45,585 - INFO - 127.0.0.1 - - [20/Jul/2024 12:08:45] "POST /ai/_dash-update-component HTTP/1.1" 200 -
+werkzeug - 2024-07-20 12:08:51,173 - INFO - 127.0.0.1 - - [20/Jul/2024 12:08:51] "POST /ai/_dash-update-component HTTP/1.1" 200 -
+werkzeug - 2024-07-20 12:09:58,621 - INFO - 127.0.0.1 - - [20/Jul/2024 12:09:58] "POST /ai/_dash-update-component HTTP/1.1" 200 -
+werkzeug - 2024-07-20 12:10:02,449 - INFO - 127.0.0.1 - - [20/Jul/2024 12:10:02] "POST /ai/_dash-update-component HTTP/1.1" 200 -
+werkzeug - 2024-07-20 12:10:07,871 - INFO - 127.0.0.1 - - [20/Jul/2024 12:10:07] "POST /ai/_dash-update-component HTTP/1.1" 200 -
+werkzeug - 2024-07-20 12:11:35,851 - INFO - 127.0.0.1 - - [20/Jul/2024 12:11:35] "POST /ai/_dash-update-component HTTP/1.1" 200 -
+werkzeug - 2024-07-20 12:57:57,327 - INFO - 127.0.0.1 - - [20/Jul/2024 12:57:57] "POST /ai/_dash-update-component HTTP/1.1" 200 -
+werkzeug - 2024-07-20 12:57:58,740 - INFO - 127.0.0.1 - - [20/Jul/2024 12:57:58] "POST /ai/_dash-update-component HTTP/1.1" 200 -
+werkzeug - 2024-07-20 12:58:00,749 - INFO - 127.0.0.1 - - [20/Jul/2024 12:58:00] "POST /ai/_dash-update-component HTTP/1.1" 200 -
+werkzeug - 2024-07-20 12:58:09,462 - INFO - 127.0.0.1 - - [20/Jul/2024 12:58:09] "POST /ai/_dash-update-component HTTP/1.1" 200 -

@@ -76,3 +76,4 @@ Werkzeug==1.0.0
 yfinance==0.1.54
 zope.event==4.6
 zope.interface==5.5.2
+feffery-antd-components
